@@ -2,14 +2,14 @@ const board = []
 var winner = false
 var round = 0
 var player = 'X'
-const n = 3 // the number of rows and columns in case I want to expand the game in the future
-const maxRounds = Math.pow(n, 2)
 
 export default class TTT {
-    constructor() {
-        for (let x = 0; x < n; x++) { // create the 2d board
+    constructor(boardSize) {
+        this.boardSize = boardSize
+        this.maxRounds = Math.pow(boardSize, 2)
+        for (let x = 0; x < boardSize; x++) { // create the 2d board
             board[x] = []
-            for (let y = 0; y < n; y++) {
+            for (let y = 0; y < boardSize; y++) {
                 board[x][y] = ''
             }
         }
@@ -20,20 +20,73 @@ export default class TTT {
             player = (round % 2) ? "O" : "X"
             board[x][y] = player
             round++
-            check(x, y)
+            this.check(x, y)
+            
             var ret = player // return current player and not the next one
+            
             player = (round % 2) ? "O" : "X"
             return ret
         } else {
             return board[x][y]
         }
     }
+    check(x, y) {
+        for (let i = 0; i < this.boardSize; i++) { // check col
+            if (board[x][i] !== player)
+                break
+            if (i === this.boardSize - 1) {
+                this.gameOver(0)
+                return
+            }
+        }
+        for (let i = 0; i < this.boardSize; i++) { // check row
+            if (board[i][y] !== player)
+                break
+            if (i === this.boardSize - 1) {
+                this.gameOver(0)
+                return
+            }
+        }
+        if (x === y) { // check diag
+            for (let i = 0; i < this.boardSize; i++) {
+                if (board[i][i] !== player)
+                    break
+                if (i === this.boardSize - 1) {
+                    this.gameOver(0)
+                    return
+                }
+            }
+        }
+        if (x + y === this.boardSize - 1) { //check anti diag
+            for (let i = 0; i < this.boardSize; i++) {
+                if (board[i][(this.boardSize - 1) - i] !== player)
+                    break
+                if (i === this.boardSize - 1) {
+                    this.gameOver(0)
+                    return
+                }
+            }
+        }
+        if (round === this.maxRounds) {
+            this.gameOver(1)
+            return
+        }
+    }
+
+    gameOver(condition) {
+        if (condition === 0) {
+            winner = player
+        }
+        if (condition === 1) {
+            winner = 'draw'
+        }
+    }
 
     restart() {
         winner = false
         round = 0
-        for (let x = 0; x < n; x++) {
-            for (let y = 0; y < n; y++) {
+        for (let x = 0; x < this.boardSize; x++) {
+            for (let y = 0; y < this.boardSize; y++) {
                 board[x][y] = ''
             }
         }
@@ -50,58 +103,5 @@ export default class TTT {
     }
     getWinner() {
         return winner
-    }
-}
-
-function check(x, y) {
-    for (let i = 0; i < n; i++) { // check col
-        if (board[x][i] !== player)
-            break
-        if (i === n - 1) {
-            gameOver(0)
-            return
-        }
-    }
-    for (let i = 0; i < n; i++) { // check row
-        if (board[i][y] !== player)
-            break
-        if (i === n - 1) {
-            gameOver(0)
-            return
-        }
-    }
-    if (x === y) { // check diag
-        for (let i = 0; i < n; i++) {
-            if (board[i][i] !== player)
-                break
-            if (i === n - 1) {
-                gameOver(0)
-                return
-            }
-        }
-    }
-    if (x + y === n - 1) { //check anti diag
-        for (let i = 0; i < n; i++) {
-            if (board[i][(n - 1) - i] !== player)
-                break
-            if (i === n - 1) {
-                gameOver(0)
-                return
-            }
-        }
-    }
-    if (round === maxRounds) {
-        gameOver(1)
-        return
-    }
-}
-
-function gameOver(condition) {
-    if (condition === 0) {
-        console.log(player)
-        winner = player
-    }
-    if (condition === 1) {
-        winner = 'draw'
     }
 }

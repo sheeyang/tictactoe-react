@@ -5,34 +5,3 @@ html {
   background-color: #3B4252;
   color: #ECEFF4;
 }
-
-#board {
-  display: grid;
-  grid-template-rows: 100px 100px 100px;
-  grid-template-columns: 100px 100px 100px;
-}
-
-p {
-  font-size: larger;
-}
-
-button {
-  background-color: #2E3440;
-  border: none;
-  border-radius: 10px;
-  margin: 5px;
-  font-size: 50px;
-  color: #ECEFF4;
-  outline: none;
-}
-
-#restart {
-  height: 50px;
-  width: 50px;
-}
-
-#restartButton {
-  display: grid;
-  place-items: center;
-  padding: 0 0 0 0;
-}

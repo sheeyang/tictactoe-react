@@ -2,10 +2,11 @@
 
 Tictactoe created using React
 
+## [Demo](https://sheeyang.github.io/tictactoe-react/)
+
 ## Screenshot
 
-![screenshot1.png](screenshot1.png)
-
+https://user-images.githubusercontent.com/81084281/115396068-2eea8100-a217-11eb-9715-5a0615b89617.mp4
 
 ## Usage
 
@@ -13,17 +14,29 @@ Tictactoe created using React
 ```
 npm install
 ```
+or
+```
+yarn install
+```
 
-### Run React dev server (http://localhost:3000)
+### Run React dev server
 ```
 npm start
+```
+or
+```
+yarn start
 ```
 
 ### Build for production
 ```
 npm run build
 ```
+or
+```
+yarn build
+```
 
 ## TODO
-* Add option to add more squares
+* ~~Add option to change board size~~ Added!
 * Add multiplayer
