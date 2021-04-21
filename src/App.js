@@ -9,6 +9,8 @@ import {
   Redirect
 } from "react-router-dom"
 
+export const GHHOMEPAGE = "/tictactoe-react"// this is the homepage in github pages, can be left empty
+
 function App() {
   const [boardSize, setBoardSize] = useState(3)
 
@@ -19,14 +21,14 @@ function App() {
   return (
     <Router>
       <Switch>
-        <Route exact path='/home'>
+        <Route exact path={`${GHHOMEPAGE}/home`}>
           <Home onSubmit={handleSubmit} />
         </Route>
-        <Route exact path='/game'>
+        <Route exact path={`${GHHOMEPAGE}/game`}>
           <Game boardSize={boardSize} />
         </Route>
         <Route path='/'>
-          <Redirect to='/home' />
+          <Redirect to={`${GHHOMEPAGE}/home`} />
         </Route>
       </Switch>
     </Router>
