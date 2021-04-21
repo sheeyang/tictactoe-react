@@ -2,28 +2,34 @@ import './App.css';
 import Game from './Game/Game'
 import Home from './Home/Home'
 import { useState } from 'react'
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect
+} from "react-router-dom"
 
 function App() {
-
-  const [page, setPage] = useState('Home')
   const [boardSize, setBoardSize] = useState(3)
 
-  function getSize(data) {
+  function handleSubmit(data) {
     setBoardSize(data)
-    setPage('Game')
   }
 
   return (
-    <div>
-      {(() => {
-        switch (page) {
-          case 'Game':
-            return <Game boardSize={boardSize} />
-          default:
-            return <Home onSubmitCallback={getSize} />
-        }
-      })()}
-    </div>
+    <Router>
+      <Switch>
+        <Route exact path='/home'>
+          <Home onSubmit={handleSubmit} />
+        </Route>
+        <Route exact path='/game'>
+          <Game boardSize={boardSize} />
+        </Route>
+        <Route path='/'>
+          <Redirect to='/home' />
+        </Route>
+      </Switch>
+    </Router>
   )
 }
 
