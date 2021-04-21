@@ -22,8 +22,8 @@ function Home(props) {
             setError('That is not a number')
         } else {
             props.onSubmit(boardSize)
+            history.push('/game')
         }
-        history.push('/game')
     }
 
     return (
