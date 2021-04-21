@@ -1,6 +1,6 @@
 import './App.css';
-import Game from './Game'
-import Home from './Home'
+import Game from './Game/Game'
+import Home from './Home/Home'
 import { useState } from 'react'
 
 function App() {

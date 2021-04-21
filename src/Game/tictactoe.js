@@ -3,7 +3,7 @@ var winner = false
 var round = 0
 var player = 'X'
 
-export default class TTT {
+export default class Tictactoe {
     constructor(boardSize) {
         this.boardSize = boardSize
         this.maxRounds = Math.pow(boardSize, 2)
@@ -31,11 +31,12 @@ export default class TTT {
         }
     }
     check(x, y) {
+        console.log('checked')
         for (let i = 0; i < this.boardSize; i++) { // check col
             if (board[x][i] !== player)
                 break
             if (i === this.boardSize - 1) {
-                this.gameOver(0)
+                winner = player
                 return
             }
         }
@@ -43,7 +44,7 @@ export default class TTT {
             if (board[i][y] !== player)
                 break
             if (i === this.boardSize - 1) {
-                this.gameOver(0)
+                winner = player
                 return
             }
         }
@@ -52,7 +53,7 @@ export default class TTT {
                 if (board[i][i] !== player)
                     break
                 if (i === this.boardSize - 1) {
-                    this.gameOver(0)
+                    winner = player
                     return
                 }
             }
@@ -62,23 +63,14 @@ export default class TTT {
                 if (board[i][(this.boardSize - 1) - i] !== player)
                     break
                 if (i === this.boardSize - 1) {
-                    this.gameOver(0)
+                    winner = player
                     return
                 }
             }
         }
         if (round === this.maxRounds) {
-            this.gameOver(1)
-            return
-        }
-    }
-
-    gameOver(condition) {
-        if (condition === 0) {
-            winner = player
-        }
-        if (condition === 1) {
             winner = 'draw'
+            return
         }
     }
 

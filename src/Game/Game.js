@@ -1,63 +1,65 @@
 import './Game.css';
-import TTT from './tictactoe'
+import Tictactoe from './tictactoe'
 import Board from './Board'
 import { ReactComponent as Reset } from './reset.svg';
 import { useState, useEffect } from 'react'
 
-var boardSize = 3
-var ttt = new TTT(boardSize)
+var boardSize
+var TTT
+var gameOver = false
 
 function Game(props) {
-
   useEffect(() => {
     if (props.boardSize) {
       boardSize = props.boardSize
+      TTT = new Tictactoe(boardSize)
     }
-    ttt = new TTT(boardSize)
-    check()
-  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+    getGameState()
+  }, [props.boardSize])
 
   const [turnText, setTurnText] = useState()
   const [roundText, setRoundText] = useState()
-  const [board, setBoard] = useState(ttt.getBoard())
+  const [board, setBoard] = useState([])
 
   function boxClicked(e) {
     const id = e.target.id
     const x = id[0]
     const y = id[1]
-    ttt.move(x, y)
-    setBoard(ttt.getBoard)
-    check()
+    if (!gameOver) { // if game over dont need to getGameState anymore
+      TTT.move(x, y)
+      getGameState()
+    }
   }
 
-  function check() {
-    const player = ttt.getPlayer()
-    const round = ttt.getRound()
-    const winner = ttt.getWinner()
+  function getGameState() {
+    const player = TTT.getPlayer()
+    const round = TTT.getRound()
+    const winner = TTT.getWinner()
+    setBoard(TTT.getBoard)
     switch (winner) {
-      case 'X':
-        setTurnText('X wins!')
-        break
-      case 'O':
-        setTurnText('O wins!')
+      case false:
+        setTurnText(`${player}'s turn`)
+        gameOver = false
         break
       case 'draw':
         setTurnText('Draw!')
+        gameOver = true
         break
       default:
-        setTurnText(`${player}'s turn`)
+        setTurnText(`${winner} wins!`)
+        gameOver = true
         break
     }
     setRoundText(`round: ${round}`)
   }
 
   function restart() {
-    ttt.restart()
-    check()
+    TTT.restart()
+    getGameState()
   }
 
   return (
-    <div className="App">
+    <div>
       <button id='restartButton' onClick={restart}>
         <Reset id='restart' fill='#ECEFF4' stroke='#ECEFF4' />
       </button>
