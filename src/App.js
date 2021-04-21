@@ -3,13 +3,11 @@ import Game from './Game/Game'
 import Home from './Home/Home'
 import { useState } from 'react'
 import {
-  BrowserRouter as Router,
+  HashRouter as Router,
   Switch,
   Route,
   Redirect
 } from "react-router-dom"
-
-export const GHHOMEPAGE = "/tictactoe-react"// this is the homepage in github pages, can be left empty
 
 function App() {
   const [boardSize, setBoardSize] = useState(3)
@@ -19,16 +17,16 @@ function App() {
   }
 
   return (
-    <Router>
+    <Router hashType='noslash'>
       <Switch>
-        <Route exact path={`${GHHOMEPAGE}/home`}>
+        <Route exact path={'/home'}>
           <Home onSubmit={handleSubmit} />
         </Route>
-        <Route exact path={`${GHHOMEPAGE}/game`}>
+        <Route exact path={'/game'}>
           <Game boardSize={boardSize} />
         </Route>
         <Route path='/'>
-          <Redirect to={`${GHHOMEPAGE}/home`} />
+          <Redirect to={'/home'} />
         </Route>
       </Switch>
     </Router>

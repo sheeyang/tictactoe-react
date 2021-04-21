@@ -1,7 +1,6 @@
 import './Home.css'
 import { useState } from 'react'
 import { useHistory } from 'react-router-dom'
-import { GHHOMEPAGE } from '../App'
 
 function Home(props) {
     const history = useHistory()
@@ -23,7 +22,7 @@ function Home(props) {
             setError('That is not a number')
         } else {
             props.onSubmit(boardSize)
-            history.push(`${GHHOMEPAGE}/game`)
+            history.push('/game')
         }
     }
 
