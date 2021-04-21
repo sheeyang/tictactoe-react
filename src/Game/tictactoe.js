@@ -31,7 +31,6 @@ export default class Tictactoe {
         }
     }
     check(x, y) {
-        console.log('checked')
         for (let i = 0; i < this.boardSize; i++) { // check col
             if (board[x][i] !== player)
                 break
