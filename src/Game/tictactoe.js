@@ -1,10 +1,11 @@
-const board = []
+var board = []
 var winner = false
 var round = 0
 var player = 'X'
 
 export default class Tictactoe {
     constructor(boardSize) {
+        this.restart()
         this.boardSize = boardSize
         this.maxRounds = Math.pow(boardSize, 2)
         for (let x = 0; x < boardSize; x++) { // create the 2d board
@@ -21,9 +22,9 @@ export default class Tictactoe {
             board[x][y] = player
             round++
             this.check(x, y)
-            
+
             var ret = player // return current player and not the next one
-            
+
             player = (round % 2) ? "O" : "X"
             return ret
         } else {

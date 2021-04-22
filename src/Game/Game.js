@@ -1,9 +1,10 @@
 import './Game.css';
 import Tictactoe from './tictactoe'
 import Board from './Board'
-import { ReactComponent as Reset } from './reset.svg';
+import { ReactComponent as ResetSVG } from './reset.svg'
+import { ReactComponent as BackSVG } from './back.svg'
 import { useState, useEffect } from 'react'
-import { useLocation } from 'react-router-dom'
+import { useLocation,useHistory } from 'react-router-dom'
 
 var boardSize
 var TTT
@@ -12,6 +13,7 @@ var gameOver = false
 
 function Game() {
   const query = new URLSearchParams(useLocation().search)
+  const history = useHistory()
   boardSize = query.get('boardsize')
   useEffect(() => {
     TTT = new Tictactoe(boardSize)
@@ -59,11 +61,20 @@ function Game() {
     getGameState()
   }
 
+  function goback(){
+    history.goBack()
+  }
+
   return (
     <div>
-      <button id='restartButton' onClick={restart}>
-        <Reset id='restart' fill='#ECEFF4' stroke='#ECEFF4' />
-      </button>
+      <div id='top'>
+        <button onClick={goback}>
+          <BackSVG id='BackSVG' fill='#ECEFF4' stroke='#ECEFF4' />
+        </button>
+        <button onClick={restart}>
+          <ResetSVG id='ResetSVG' fill='#ECEFF4' stroke='#ECEFF4' />
+        </button>
+      </div>
       <Board boardSize={boardSize} board={board} onClick={boxClicked} />
       <p>{turnText}</p>
       <p>{roundText}</p>
