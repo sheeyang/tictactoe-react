@@ -1,7 +1,6 @@
 import './App.css';
 import Game from './Game/Game'
 import Home from './Home/Home'
-import { useState } from 'react'
 import {
   HashRouter as Router,
   Switch,
@@ -10,20 +9,14 @@ import {
 } from "react-router-dom"
 
 function App() {
-  const [boardSize, setBoardSize] = useState(3)
-
-  function handleSubmit(data) {
-    setBoardSize(data)
-  }
-
   return (
     <Router hashType='noslash'>
       <Switch>
         <Route exact path={'/home'}>
-          <Home onSubmit={handleSubmit} />
+          <Home />
         </Route>
         <Route exact path={'/game'}>
-          <Game boardSize={boardSize} />
+          <Game />
         </Route>
         <Route path='/'>
           <Redirect to={'/home'} />

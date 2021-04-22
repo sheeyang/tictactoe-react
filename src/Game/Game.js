@@ -3,19 +3,20 @@ import Tictactoe from './tictactoe'
 import Board from './Board'
 import { ReactComponent as Reset } from './reset.svg';
 import { useState, useEffect } from 'react'
+import { useLocation } from 'react-router-dom'
 
 var boardSize
 var TTT
 var gameOver = false
 
-function Game(props) {
+
+function Game() {
+  const query = new URLSearchParams(useLocation().search)
+  boardSize = query.get('boardsize')
   useEffect(() => {
-    if (props.boardSize) {
-      boardSize = props.boardSize
-      TTT = new Tictactoe(boardSize)
-    }
+    TTT = new Tictactoe(boardSize)
     getGameState()
-  }, [props.boardSize])
+  }, [])
 
   const [turnText, setTurnText] = useState()
   const [roundText, setRoundText] = useState()
