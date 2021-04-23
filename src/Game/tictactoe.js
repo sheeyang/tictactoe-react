@@ -8,14 +8,17 @@ export default class Tictactoe {
         this.restart()
         this.boardSize = boardSize
         this.maxRounds = Math.pow(boardSize, 2)
-        for (let x = 0; x < boardSize; x++) { // create the 2d board
+        this.initBoard()
+    }
+    initBoard() {
+        board=[]
+        for (let x = 0; x < this.boardSize; x++) { // create the 2d board
             board[x] = []
-            for (let y = 0; y < boardSize; y++) {
+            for (let y = 0; y < this.boardSize; y++) {
                 board[x][y] = ''
             }
         }
     }
-
     move(x, y) {
         if (board[x][y] === '' && winner === false) {
             player = (round % 2) ? "O" : "X"
@@ -77,11 +80,7 @@ export default class Tictactoe {
     restart() {
         winner = false
         round = 0
-        for (let x = 0; x < this.boardSize; x++) {
-            for (let y = 0; y < this.boardSize; y++) {
-                board[x][y] = ''
-            }
-        }
+        this.initBoard()
     }
 
     getBoard() {

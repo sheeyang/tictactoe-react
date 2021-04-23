@@ -14,9 +14,9 @@ function Board(props) {
             gridTemplateColumns: gridSize
         }}>
             {
-                props.board.map((i, x) => (
-                    i.map((value, y) => (
-                        <Box key={`${x}${y}`} id={`${x}${y}`} value={value} onClick={props.onClick} />
+                props.board.map((rows, x) => (
+                    rows.map((player, y) => (
+                        <Box key={`${x}${y}`} id={`${x}${y}`} value={player} onClick={props.onClick} />
                     ))
                 ))
             }
