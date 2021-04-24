@@ -3,8 +3,8 @@ import Tictactoe from './tictactoe'
 import Board from './Board'
 import { ReactComponent as ResetSVG } from './reset.svg'
 import { ReactComponent as BackSVG } from './back.svg'
-import { useState, useEffect } from 'react'
-import { useLocation,useHistory } from 'react-router-dom'
+import { useState, useLayoutEffect } from 'react'
+import { useLocation, useHistory } from 'react-router-dom'
 
 var boardSize
 var TTT
@@ -12,13 +12,16 @@ var gameOver = false
 
 
 function Game() {
-  const query = new URLSearchParams(useLocation().search)
-  const history = useHistory()
+  const history = useHistory() // This is here to allow users to go to the previous page
+
+  const location = useLocation()
+  const query = new URLSearchParams(location.search)
   boardSize = query.get('boardsize')
-  useEffect(() => {
+
+  useLayoutEffect(() => {
     TTT = new Tictactoe(boardSize)
     getGameState()
-  }, [])
+  }, [boardSize]) // eslint-disable-line react-hooks/exhaustive-deps
 
   const [turnText, setTurnText] = useState()
   const [roundText, setRoundText] = useState()
@@ -28,7 +31,7 @@ function Game() {
     const id = e.target.id
     const x = id[0]
     const y = id[1]
-    if (!gameOver) { // if game over dont need to getGameState anymore
+    if (!gameOver) { // if game over dont need to send data anymore, this is in preparation for when I add multiplayer in the future
       TTT.move(x, y)
       getGameState()
     }
@@ -61,7 +64,7 @@ function Game() {
     getGameState()
   }
 
-  function goback(){
+  function goback() {
     history.goBack()
   }
 

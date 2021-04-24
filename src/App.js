@@ -18,7 +18,7 @@ function App() {
         <Route exact path={'/game'}>
           <Game />
         </Route>
-        <Route path='/'>
+        <Route path='*'>
           <Redirect to={'/home'} />
         </Route>
       </Switch>
