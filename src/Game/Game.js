@@ -10,7 +10,6 @@ var boardSize
 var TTT
 var gameOver = false
 
-
 function Game() {
   const history = useHistory() // This is here to allow users to go to the previous page
 
@@ -65,7 +64,7 @@ function Game() {
   }
 
   function goback() {
-    history.goBack()
+    history.push('/home')
   }
 
   return (
